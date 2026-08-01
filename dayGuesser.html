@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Guess Day</title>
+    <style>
+        input {
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>What day is it...</h1>
+        <span><b>For reference:</b></span>        
+        <span id="fullDate"></span>
+
+        <br><br>
+
+
+        <div class="content">
+            <fieldset>
+                <span><b>Today is...</b></span> <br>
+                <span id="currentDateTxt"></span>
+
+                <br><br>
+
+                <span>What day in the next</span>
+                <input type="number" id="dayInp">
+                <span>day...</span>
+                <button id="btn">Enter</button>
+                <button id="rst">Reset</button>
+            </fieldset>
+            
+        </div>
+    </center>
+</body>
+</html>
+<script>
+    //Variable Lists
+    const FULL_DATE = document.getElementById("fullDate");
+    const CURRENT_DATE_TXT = document.getElementById("currentDateTxt");
+    const DAY_INPUT = document.getElementById("dayInp");
+    let GIVEN_DAY = 0;
+
+    //Functionz
+    function ShowFutureDay(dayIn){
+        const FUTURE_DATE = new Date();
+        FUTURE_DATE.setDate(FUTURE_DATE.getDate() + dayIn);
+
+        CURRENT_DATE_TXT.textContent = FUTURE_DATE.toLocaleDateString("en-GB", {
+                            weekday: "long",
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+        });    
+    }
+    
+    //COD3
+    setInterval(() => {
+        FULL_DATE.textContent = new Date();
+    },1000);
+
+    ShowFutureDay(GIVEN_DAY);
+
+    document.getElementById("btn").addEventListener("click", () => {
+        console.log("Button was clicked");
+        let GIVEN_DAY = DAY_INPUT.value;
+        ShowFutureDay(Number(GIVEN_DAY));
+    });
+
+    document.getElementById("rst").addEventListener("click", () => {
+        ShowFutureDay(0);
+        DAY_INPUT.value = "";
+    });
+</script>
